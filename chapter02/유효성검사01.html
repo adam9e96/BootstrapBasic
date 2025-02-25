@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입 폼</title>
+    <!-- 부트스트랩 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container {
+            max-width: 550px;
+            margin-top: 50px;
+        }
+.invalid-feedback {
+    display: none;
+    font-size: 12pt;
+    background-color: rgb(245, 216, 213);
+    border-radius: 10px;
+    padding: 8px;
+    margin-top: 5px;
+    color: #721c24;
+    font-weight: 500;
+}      
+        .password-strength {
+            height: 5px;
+            transition: width 0.5s;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h3 class="mb-0">회원가입</h3>
+            </div>
+            <div class="card-body">
+                <form class="needs-validation" novalidate>
+                    <!-- 아이디 입력 필드 -->
+                    <div class="mb-3">
+                        <label for="username" class="form-label">아이디</label>
+                        <input type="text" class="form-control" id="username" required
+                               pattern="^[a-zA-Z0-9]{4,12}$">
+                        <div class="invalid-feedback">
+                            아이디는 4~12자의 영문 대소문자와 숫자로만 입력해 주세요.
+                        </div>
+                    </div>
+
+                    <!-- 이메일 입력 필드 -->
+                    <div class="mb-3">
+                        <label for="email" class="form-label">이메일</label>
+                        <input type="email" class="form-control" id="email" required>
+                        <div class="invalid-feedback">
+                            유효한 이메일 주소를 입력해 주세요.
+                        </div>
+                    </div>
+
+                    <!-- 비밀번호 입력 필드 -->
+                    <div class="mb-3">
+                        <label for="password" class="form-label">비밀번호</label>
+                        <input type="password" class="form-control" id="password" required
+                               pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$">
+                        <div class="invalid-feedback">
+                            비밀번호는 최소 8자, 영문자, 숫자, 특수문자를 각각 하나 이상 포함해야 합니다.
+                        </div>
+                        <div class="mt-2">
+                            <div class="password-strength bg-danger rounded" style="width: 0%"></div>
+                        </div>
+                        <small class="text-muted" id="password-strength-text">비밀번호 강도: 매우 약함</small>
+                    </div>
+
+                    <!-- 비밀번호 확인 입력 필드 -->
+                    <div class="mb-3">
+                        <label for="confirm-password" class="form-label">비밀번호 확인</label>
+                        <input type="password" class="form-control" id="confirm-password" required>
+                        <div class="invalid-feedback">
+                            비밀번호가 일치하지 않습니다.
+                        </div>
+                    </div>
+
+                    <!-- 이름 입력 필드 -->
+                    <div class="mb-3">
+                        <label for="name" class="form-label">이름</label>
+                        <input type="text" class="form-control" id="name" required>
+                        <div class="invalid-feedback">
+                            이름을 입력해 주세요.
+                        </div>
+                    </div>
+
+                    <!-- 전화번호 입력 필드 -->
+                    <div class="mb-3">
+                        <label for="phone" class="form-label">전화번호</label>
+                        <input type="tel" class="form-control" id="phone" required
+                               pattern="^01[0-9]-?[0-9]{3,4}-?[0-9]{4}$">
+                        <div class="invalid-feedback">
+                            올바른 전화번호 형식으로 입력해 주세요. (예: 010-1234-5678)
+                        </div>
+                    </div>
+
+                    <!-- 이용약관 동의 체크박스 -->
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="agree-terms" required>
+                        <label class="form-check-label" for="agree-terms">이용약관에 동의합니다.</label>
+                        <div class="invalid-feedback">
+                            이용약관에 동의해야 합니다.
+                        </div>
+                    </div>
+
+                    <!-- 개인정보 수집 동의 체크박스 -->
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="agree-privacy" required>
+                        <label class="form-check-label" for="agree-privacy">개인정보 수집 및 이용에 동의합니다.</label>
+                        <div class="invalid-feedback">
+                            개인정보 수집 및 이용에 동의해야 합니다.
+                        </div>
+                    </div>
+
+                    <!-- 제출 버튼 -->
+                    <div class="d-grid">
+                        <button class="btn btn-primary" type="submit">회원가입</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- 부트스트랩 JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // 폼 유효성 검사 활성화
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.querySelector('.needs-validation');
+            // 비밀번호 입력 필드
+            const passwordInput = document.getElementById('password');
+            // 비밀번호 강도 표시 바
+            const confirmPasswordInput = document.getElementById('confirm-password');
+            // 비밀번호 확인 입력 필드
+            const passwordStrength = document.querySelector('.password-strength');
+            // 비밀번호 강도 표시 텍스트
+            const passwordStrengthText = document.getElementById('password-strength-text');
+            
+            passwordInput.addEventListener('input', function() {
+                const password = passwordInput.value;
+                let strength = 0;
+                let status = '';
+                
+                if (password.length >= 8) strength += 20;
+                if (password.match(/[a-z]+/)) strength += 20;
+                if (password.match(/[A-Z]+/)) strength += 20;
+                if (password.match(/[0-9]+/)) strength += 20;
+                if (password.match(/[^a-zA-Z0-9]+/)) strength += 20;
+                
+                passwordStrength.style.width = strength + '%';
+                
+                if (strength < 20) {
+                    passwordStrength.className = 'password-strength bg-danger rounded';
+                    status = '매우 약함';
+                } else if (strength < 40) {
+                    passwordStrength.className = 'password-strength bg-warning rounded';
+                    status = '약함';
+                } else if (strength < 60) {
+                    passwordStrength.className = 'password-strength bg-info rounded';
+                    status = '보통';
+                } else if (strength < 80) {
+                    passwordStrength.className = 'password-strength bg-primary rounded';
+                    status = '강함';
+                } else {
+                    passwordStrength.className = 'password-strength bg-success rounded';
+                    status = '매우 강함';
+                }
+                
+                passwordStrengthText.textContent = '비밀번호 강도: ' + status;
+            });
+            
+            // 비밀번호 확인 일치 검사
+            confirmPasswordInput.addEventListener('input', function() {
+                if (passwordInput.value !== confirmPasswordInput.value) {
+                    confirmPasswordInput.setCustomValidity('비밀번호가 일치하지 않습니다.');
+                } else {
+                    confirmPasswordInput.setCustomValidity('');
+                }
+            });
+            
+            // 전화번호 자동 하이픈 추가
+            const phoneInput = document.getElementById('phone');
+            phoneInput.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/[^0-9]/g, '');
+                
+                if (value.length > 3 && value.length <= 7) {
+                    value = value.slice(0, 3) + '-' + value.slice(3);
+                } else if (value.length > 7) {
+                    value = value.slice(0, 3) + '-' + value.slice(3, 7) + '-' + value.slice(7, 11);
+                }
+                
+                e.target.value = value;
+            });
+            
+            // 폼 제출 처리
+            form.addEventListener('submit', function(event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                } else {
+                    // 폼이 유효하면 여기에 제출 로직 추가
+                    alert('회원가입이 완료되었습니다!');
+                }
+                
+                form.classList.add('was-validated');
+            });
+        });
+    </script>
+</body>
+</html>
